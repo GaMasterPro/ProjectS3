@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bankdash Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Video background */
+    .video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .video-container video {
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: rgba(44, 62, 80, 0.7); /* Slight transparency */
+      color: white;
+      padding: 20px;
+      height: 100vh;
+      z-index: 2;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .sidebar ul li:hover {
+      background-color: rgba(52, 73, 94, 0.9);
+      border-radius: 5px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .header .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .overview {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+
+    .card, .recent-transactions {
+      width: 48%;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .card h3, .recent-transactions h3 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .charts {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      width: 100%;
+    }
+
+    .chart {
+      width: 48%;
+      background-color: rgba(255, 255, 255, 0.85); /* Slight transparency */
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Video Background -->
+  <div class="video-container">
+    <video autoplay muted loop>
+      <source src="/static/videos/5727833-uhd_3840_2160_30fps.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h2>Bankdash</h2>
+      </div>
+      <ul>
+        <li><a href = "/main" style = "color: inherit; text-decoration: none;"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="/transactions" style="color: inherit; text-decoration: none;"><i class="fas fa-credit-card"></i> Transactions</a></li>
+        <li><a href="/about" style="color: inherit; text-decoration: none;"><i class="fas fa-user"></i> Accounts</a></li>
+        <li><i class="fas fa-chart-line"></i> Investments</li>
+        <li><a href="/showingcard" style="color: inherit; text-decoration: none;"><i class="fas fa-credit-card"></i> Credit Cards</a></li>
+        <li><a href="/loans" style="color: inherit; text-decoration: none;"><i class="fas fa-hand-holding-usd"></i> Loans</a></li>
+        <li><i class="fas fa-cogs"></i> Payments</li>
+        <li><i class="fas fa-cogs"></i> Settings</li>
+        <form action="/logout" method="POST" style="margin: 0; display: inline-block;">
+          <button type="submit" style="color: inherit; background-color: #e74c3c; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; width: 100%; text-align: center;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </form>
+      </ul>
+    </div>
+    <li><i class="fas fa-cogs"></i> Services</li>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <input type="text" placeholder="Search for something...">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+        </div>
+      </div>
+
+      <div class="overview">
+        <div class="card">
+          <h3>My Cards</h3>
+          <div class="card-details">
+            <div class="card-info">
+              <h4>{{user.total_balance}}</h4>
+              <p>Balance</p>
+            </div>
+            <div class="card-info">
+              <h4>12/22</h4>
+              <p>Valid Thru</p>
+            </div>
+            <div class="card-info">
+              <h4>{{masked_card_number}}</h4>
+              <p>Card Number</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-transactions">
+          <h3>Recent Transactions</h3>
+          <ul>
+            <li>Deposit from my Card <span>- $500</span></li>
+            <li>Deposit Paypal <span>+ $500</span></li>
+            <li>Jemi Wilson <span>+ $500</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="charts">
+        <div class="chart">
+          <h3>Weekly Activity</h3>
+          <canvas id="weeklyActivity"></canvas>
+        </div>
+        <div class="chart">
+          <h3>Balance History</h3>
+          <canvas id="balanceHistory"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart.js example data with transparency
+    const weeklyActivityData = {
+      labels: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      datasets: [{
+        label: 'Activity',
+        data: [100, 300, 200, 150, 400, 100, 350],
+        backgroundColor: 'rgba(52, 152, 219, 0.5)',
+        borderColor: 'rgba(52, 152, 219, 0.8)',
+        borderWidth: 2
+      }]
+    };
+
+    const balanceHistoryData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+      datasets: [{
+        label: 'Balance History',
+        data: [100, 200, 150, 400, 500, 600, 700, 800],
+        backgroundColor: 'rgba(46, 204, 113, 0.2)',
+        borderColor: 'rgba(46, 204, 113, 0.8)',
+        borderWidth: 2
+      }]
+    };
+
+    // Initialize charts
+    new Chart(document.getElementById('weeklyActivity'), {
+      type: 'bar',
+      data: weeklyActivityData,
+      options: { responsive: true }
+    });
+
+    new Chart(document.getElementById('balanceHistory'), {
+      type: 'line',
+      data: balanceHistoryData,
+      options: { responsive: true }
+    });
+  </script>
+</body>
+</html>

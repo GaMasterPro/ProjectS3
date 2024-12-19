@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Bill to Pay</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Video Background */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: rgba(44, 62, 80, 0.7); /* Transparent sidebar */
+      color: white;
+      padding: 20px;
+      height: 100vh;
+      backdrop-filter: blur(10px); /* Blur effect for better readability */
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .sidebar ul li:hover {
+      background-color: rgba(52, 73, 94, 0.7); /* Slightly darker on hover */
+      border-radius: 5px;
+    }
+
+    .sidebar form button {
+      width: 100%;
+      background-color: #e74c3c;
+      color: inherit;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar form button:hover {
+      background-color: #c0392b;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .header .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .pay-bills-form {
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.6); /* White with 60% transparency */
+      backdrop-filter: blur(10px); /* Blur effect for better readability */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+
+    .pay-bills-form h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 16px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .form-group select, .form-group input {
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    .form-group select {
+      width: 220px;
+    }
+
+    .pay-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 200px;
+      align-self: flex-start;
+      transition: background-color 0.3s ease;
+    }
+
+    .pay-btn:hover {
+      background-color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video autoplay muted loop class="video-bg">
+    <source src="/static/videos/7875576-hd_1920_1080_25fps.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h2>Bankdash</h2>
+      </div>
+      <ul>
+        <li><a href = "/main" style = "color: inherit; text-decoration: none;"><i class="fas fa-home"></i> Dashboard</a></li>
+        <li><a href="/transactions" style="color: inherit; text-decoration: none;"><i class="fas fa-credit-card"></i> Transactions</a></li>
+        <li><i class="fas fa-user"></i> Accounts</li>
+        <li><i class="fas fa-chart-line"></i> Investments</li>
+        <li><i class="fas fa-credit-card"></i> Credit-Cards</li>
+        <li><a href="/loans" style="color: inherit; text-decoration: none;"><i class="fas fa-hand-holding-usd"></i> Loans</a></li>
+        <li><i class="fas fa-cogs"></i> Services</li>
+        <li><i class="fas fa-cogs"></i> Settings</li>
+        <form action="/logout" method="POST" style="margin: 0;">
+          <button type="submit">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </form>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <input type="text" placeholder="Search for something...">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+        </div>
+      </div>
+
+      <!-- Form for Selecting Bill -->
+      <div class="pay-bills-form">
+        <h3>Select Bill to Pay</h3>
+        
+        <form action="/redirect-to-payment" method="POST">
+          <div class="form-group">
+            <label for="bill-type">Select Bill Type</label>
+            <select id="bill-type" name="bill-type" required>
+              <option value="">Choose a bill</option>
+              <option value="house-bills">House Bills</option>
+              <option value="taxes">Taxes</option>
+              <option value="car-loan">Car Loan</option>
+              <option value="education-loan">Education Loan</option>
+              <option value="personal-loan">Personal Loan</option>
+              <option value="medical-loan">Medical Loan</option>
+            </select>
+          </div>
+
+          <button type="submit" class="pay-btn">Proceed to Payment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

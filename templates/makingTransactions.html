@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make a Transaction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      display: flex;
+    }
+
+    .dashboard-container {
+      display: flex;
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      height: 100vh;
+    }
+
+    .sidebar .logo {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .sidebar ul {
+      list-style-type: none;
+    }
+
+    .sidebar ul li {
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .sidebar ul li:hover {
+      background-color: #34495e;
+      border-radius: 5px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    .header .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .make-transaction-form {
+      margin-top: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .make-transaction-form h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 16px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .form-group input, .form-group select {
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    .form-group input[type="number"] {
+      width: 200px;
+    }
+
+    .transaction-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      width: 200px;
+      align-self: flex-start;
+      transition: background-color 0.3s ease;
+    }
+
+    .transaction-btn:hover {
+      background-color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">
+        <h2>Bankdash</h2>
+      </div>
+      <ul>
+        <li><i class="fas fa-home"></i> Dashboard</li>
+        <li><i class="fas fa-credit-card"></i> Transactions</li>
+        <li><i class="fas fa-user"></i> Accounts</li>
+        <li><i class="fas fa-chart-line"></i> Investments</li>
+        <li><i class="fas fa-credit-card"></i> Credit-Cards</li>
+        <li><i class="fas fa-loan"></i> Loans</li>
+        <li><i class="fas fa-cogs"></i> Services</li>
+        <li><i class="fas fa-cogs"></i> Settings</li>
+        <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="header">
+        <input type="text" placeholder="Search for something...">
+        <div class="profile">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile Picture">
+        </div>
+      </div>
+
+      <!-- Make Transaction Form -->
+      <div class="make-transaction-form">
+        <h3>Make a Transaction</h3>
+        <form action="/submit-transaction" method="POST">
+          <div class="form-group">
+            <label for="recipient">Recipient</label>
+            <input type="text" id="recipient" name="recipient" placeholder="Enter recipient name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="transaction-type">Transaction Type</label>
+            <select id="transaction-type" name="transaction-type" required>
+              <option value="deposit">Deposit</option>
+              <option value="withdrawal">Withdrawal</option>
+              <option value="transfer">Transfer</option>
+            </select>
+          </div>
+
+          <button type="submit" class="transaction-btn">Submit Transaction</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Loan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f4f7fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    video.background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .main-content {
+      width: 600px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    .loan-form {
+      background-color: transparent;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .loan-form h3 {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .loan-form .input-group {
+      margin-bottom: 20px;
+    }
+
+    .loan-form label {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #34495e;
+    }
+
+    .loan-form input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    .loan-form button {
+      background-color: #3498db;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .loan-form button:hover {
+      background-color: #2980b9;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .success {
+      color: green;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <!-- Video background -->
+  <video class="background-video" autoplay loop muted>
+    <source src="/static/videos/5849625-hd_1920_1080_30fps.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="main-content">
+    <div class="loan-form">
+      <h3>Personal Loan Payment</h3>
+
+      <!-- Success/Error Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <!-- Loan Form -->
+      <form method="POST" action="/personalLoan">
+        <div class="input-group">
+          <label for="loan-amount">Loan Amount ($)</label>
+          <input type="number" id="loan-amount" name="loan-amount" required>
+        </div>
+        <button type="submit">Pay</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
