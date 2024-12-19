@@ -1,0 +1,26 @@
+CREATE TABLE user (
+    id INTEGER PRIMARY KEY,
+    username VARCHAR(80) NOT NULL,
+    password VARCHAR(80) NOT NULL,
+    card VARCHAR(16) NOT NULL UNIQUE,
+    cvv VARCHAR(4) NOT NULL,
+    edate DATE NOT NULL,
+    email VARCHAR(80) NOT NULL UNIQUE,
+    total_balance INTEGER,
+    income INTEGER,
+    expenses INTEGER,
+    savings INTEGER,
+    houseBills INTEGER,
+    taxes INTEGER,
+    car_loan INTEGER,
+    education_loan INTEGER,
+    medical_loan INTEGER,
+    personal_loan INTEGER
+);
+
+CREATE TABLE transactions (
+    id INTEGER PRIMARY KEY,
+    sender_id INTEGER,
+    receiver_id INTEGER,
+    money INTEGER NOT NULL
+);
